@@ -10,6 +10,7 @@ class User(db.Model):
     password = db.Column(db.String(512), nullable=False)
     name = db.Column(db.String(512))
     surname = db.Column(db.String(512))
+    is_locked = db.Column(db.Boolean, default=False)
     favorite_genre = db.Column(db.Integer(), db.ForeignKey('genre.id'))
     genre = db.relationship('Genre')
     # movies = db.relationship('UserMovie', secondary='user_movie')
