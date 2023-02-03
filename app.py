@@ -15,6 +15,7 @@ from views.users import user_ns
 def create_app(conf):
     app = Flask(__name__)
     app.config.from_object(conf)
+    app.config.from_envvar('APP_SETTINGS', silent=True)
     register_extension(app)
     return app
 
