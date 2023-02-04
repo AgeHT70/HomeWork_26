@@ -4,6 +4,7 @@ services:
   api:
     build:
       context: .
+    image: ageht/skypro_hw_26
     ports:
       - 80:80
     depends_on:
@@ -15,6 +16,7 @@ services:
   migrations:
     build:
       context: .
+    image: ageht/skypro_hw_26
     command: flask db upgrade
     depends_on:
       pg:
