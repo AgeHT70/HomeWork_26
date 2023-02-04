@@ -26,8 +26,11 @@ class AuthLoginView(Resource):
         password = request_json.get('password')
         if None in [email, password]:
             abort(400)
-        tokens = auth_service.generate_token(email, password)
-        return tokens, 201
+        if user_service.get_by_email(email):
+            tokens = auth_service.generate_token(email, password)
+            return tokens, 201
+        else:
+            abort(400)
 
     def put(self):
         request_json = request.json

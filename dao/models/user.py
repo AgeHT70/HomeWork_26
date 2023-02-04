@@ -7,7 +7,7 @@ class User(db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     email = db.Column(db.String(512), nullable=False, unique=True)
-    password = db.Column(db.String(512), nullable=False)
+    password = db.Column(db.LargeBinary, nullable=False)
     name = db.Column(db.String(512))
     surname = db.Column(db.String(512))
     is_locked = db.Column(db.Boolean, default=False)

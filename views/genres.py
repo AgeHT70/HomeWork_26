@@ -13,7 +13,7 @@ class GenresViews(Resource):
     # @auth_required
     def get(self):
         page = request.args.get('page')
-        filters = {"page": int(page)}
+        filters = {"page": page}
         genres = genre_service.get_all(filters)
         schema = GenreSchema(many=True)
         result = schema.dump(genres)
