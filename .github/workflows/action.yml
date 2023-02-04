@@ -32,3 +32,4 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           source: "deploy/docker-compose.yaml, deploy/config.py"
           target: "flask_app_ci"
+          strip_components: 1
