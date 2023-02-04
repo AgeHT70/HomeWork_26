@@ -1,8 +1,7 @@
 from flask import Flask
-from flask_migrate import Migrate
 from flask_restx import Api
 
-from setup_db import db
+from setup_db import db, migrate
 from config import Config
 
 from views.auths import auth_ns
@@ -28,11 +27,11 @@ def register_extension(app):
     api.add_namespace(user_ns)
     api.add_namespace(auth_ns)
     db.init_app(app)
+    migrate.init_app(app, db)
 
 
 app = create_app(Config())
 app.debug = True
-migrate = Migrate(app, db, render_as_batch=True)
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=5001, debug=True)
