@@ -13,3 +13,23 @@ jobs:
       - name: docker push
         run: docker push ageht/skypro_hw_26:$GITHUB_REF_NAME-$GITHUB_RUN_ID
 
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: clone code
+        uses: actions/checkout@v2
+      - name: render config
+        run: |
+          mkdir deploy
+          cat docker-compose-ci.yaml | envsubst > deploy/docker-compose.yaml
+          cat config-ci.py | envsubst > deploy/config.py
+      - name: copy files to server
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          source: "deploy/docker-compose.yaml, deploy/config.py"
+          target: "flask_app_ci"
+          strip_components: 1
+

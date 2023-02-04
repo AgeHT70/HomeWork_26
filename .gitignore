@@ -161,3 +161,4 @@ cython_debug/
 .idea/
 movies.db
 pg_data/
+config.py
