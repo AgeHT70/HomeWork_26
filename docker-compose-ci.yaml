@@ -3,6 +3,8 @@ version: "3.9"
 services:
   api:
     image: ageht/skypro_hw_26:$GITHUB_REF_NAME-$GITHUB_RUN_ID
+    volumes:
+      - ./config.py:/code/config.py
     ports:
       - 80:80
     depends_on:
@@ -13,6 +15,8 @@ services:
 
   migrations:
     image: ageht/skypro_hw_26:$GITHUB_REF_NAME-$GITHUB_RUN_ID
+    volumes:
+      - ./config.py:/code/config.py
     command: flask db upgrade
     depends_on:
       pg:
